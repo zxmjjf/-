@@ -1,0 +1,88 @@
+主键自增：
+
+
+CREATE TABLE test
+(
+id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(15) NOT NULL)AUTO_INCREMENT = 100;
+
+
+可在建表时可用“AUTO_INCREMENT=n”选项来指定一个自增的初始值。
+
+
+alter table tbname auto_increment = x?;
+设置表tbname的唯一auto_increment字段起始值从x开始，如果此表数据量很多的话，这样执行起来会很慢
+
+AUTO_INCREMENT
+说明：
+
+
+（1）如果把一个NULL插入到一个AUTO_INCREMENT数据列里去，MySQL将自动生成下一个序列编号。编号从1开始，并1为基数递增。
+
+
+（2）把0插入AUTO_INCREMENT数据列的效果与插入NULL值一样。但不建议这样做，还是以插入NULL值为好。
+
+
+（3）当插入记录时，没有为AUTO_INCREMENT明确指定值，则等同插入NULL值。
+
+
+（4）当插入记录时，如果为AUTO_INCREMENT数据列明确指定了一个数值，则会出现两种情况，情况一，如果插入的值与已有的编号重复，则会出现出错信息，因为AUTO_INCREMENT数据列的值必须是唯一的；情况二，如果插入的值大于已编号的值，则会把该插入到数据列中，并使在下一个编号将从这个新值开始递增。也就是说，可以跳过一些编号。
+
+
+（5）如果用UPDATE命令更新自增列，如果列值与已有的值重复，则会出错。如果大于已有值，则下一个编号从该值开始递增。
+mysql> insert into testvalues(1,'a'),(2,'b'),(null,'c');
+
+
+Query OK, 3 rows affected (0.00 sec)
+
+Records: 3?Duplicates: 0? Warnings: 0
+
+?
+
+
+mysql> select * From test;
+
+
++-----+----------+
+
+|
+ id?| username |
+
+
++-----+----------+
+
+
+|?? 1| a????|
+
+
+|?? 2| b????|
+
+
+| 100  | c???  |
+
+
++-----+----------+
+
+
+3 rows in set (0.00 sec)
+
+?
+
+
+修改某一列为自增：
+
+mysql> alter table test change id id int AUTO_INCREMENT;
+
+
+
+
+mysql> create table t24(id int,namechar(10));
+
+
+mysql> alter table t24 add primarykey(id); //添加主键
+
+
+mysql> alter table t24 modify id int auto_increment;//加入自动增加
+
+?
+

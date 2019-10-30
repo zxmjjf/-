@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mi8_MiPhones" class="com.phone.MiPhones" >
+        <property name="model" value="Mi-8  CPU-845 storage-128G"/>
+    </bean>
+    <bean id="hw_HwPhones" class="com.phone.HwPhones">
+        <property name="model" value="hw-荣耀10   CPU-870 storage-256G"/>
+    </bean>
+
+    <bean id="open_BeforeMethodAdvice" class="com.springAOP.beforeRun.MiPhBeforeRun">
+        <property name="say" value="[android]正在开机..."/>
+    </bean>
+
+    <bean id="open_Advisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="mappedNames">
+            <list>
+                <value>open</value>
+                <!--<value>close</value>-->
+            </list>
+        </property>
+        <property name="advice" ref="open_BeforeMethodAdvice"/>
+    </bean>
+
+    <!--auto_proxy-->
+    <!--BeanNameAutoProxyCreator -->
+    <!--<bean id="auto_proxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames">
+            <list>
+                <value>mi8_MiPhones</value>
+                <value>hw_HwPhones</value>
+            </list>
+        </property>
+
+        <property name="interceptorNames">
+            <list>
+                <value>open_Advisor</value>
+            </list>
+        </property>
+    </bean>-->
+
+    <!--DefaultAdvisorAutoProxyCreator-->
+    <bean id="auto_proxy" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+</beans>

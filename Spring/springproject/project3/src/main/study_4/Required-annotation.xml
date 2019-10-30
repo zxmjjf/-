@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--Student 对象的第一种配置形式: 显示的使用property子元素实习@Required注解 -->
+    <bean id="required-person1" class="main.study_4.Student">
+        <property name="person"> <!--因为setPerson方法被@Required注解，所以一定要保证这个方法被调用-->
+            <bean class="main.study_4.Person">
+                <property name="name" value="姜子丫丫"/>
+            </bean>
+        </property>
+        <!--在配置一下其他域-->
+        <property name="specialized" value="软件工程专业"/>
+    </bean>
+
+    <!--第二种配置方式：-->
+    <bean id="required-person2" class="main.study_4.Student" autowire="byName"/>
+    <bean id="person" class="main.study_4.Person">
+        <property name="age" value="33"/>
+    </bean>
+
+    <bean id="student" class="main.study_4.Student" autowire="byName"/>
+
+
+</beans>

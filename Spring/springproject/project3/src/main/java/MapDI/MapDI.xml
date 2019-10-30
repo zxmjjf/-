@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="map1" class="main.java.MapDI.DIMapValue">
+        <property name="map">
+            <util:map>
+                <entry key="k1" value="姜剑锋"/>
+                <entry key="k2" value="22" />
+                <entry key="k3" value="男" />
+                <entry key="k4" value="Java高级工程师" />
+                <entry key="k5" value="IT" />
+                <entry key="k6" value="10k" />
+            </util:map>
+        </property>
+    </bean>
+    
+</beans>

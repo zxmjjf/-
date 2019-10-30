@@ -1,0 +1,60 @@
+9:25 2019/4/9
+1，表的操作：
+	创建新表：create table tablName(bitName1 type, bitName2 type, ...., bitNamen type);
+	修改表名：alter table oldTableName rename [to] newTableName;
+	修改字段名：alter table tableName change oldBitNmae newBitName type;
+	修改数据类型：alter table tableName modify bitName type;
+	增加字段：alter table tableName add bitName type [first|after bitName];
+	删除字段：alter table tableName drop bitName;
+	修改字段的位置：alter table tableName modify bitName1 type first|after bitName2;
+	删除表：drop table tableName;
+	查看数据表的结构1：show create table tableName[\G];
+	查看数据表的结构2：desc tableName;
+
+2，表的约束：
+	primary key: 主键约束，唯一非空；
+	not null: 非空约束，值不能为空，如果没有设置默认值为非空数据，则增加记录时必须指定非空字段的值。加于字段之后
+	unique: 唯一性约束，及注意null!=null;
+	default: 默认值约束，可以为字段设置默认值，不设置则默认值为NULL;后跟默认值，加于字段之后
+	foreign key: 外键约束，建立表与表之间的约束关系；
+	auto_increment: 自动增加标记；
+
+		用法：在创建表时用在对应的字段的数据类型之后，primary key可以建立多字段主键；
+
+3，表的索引：
+	1，创建表的时候建立索引：
+		此时索引在所有字段之后统一定义：
+		   [unique|fulltext|spatial] index|key [indexName] (bitName [(size)] [asc|desc])
+		unique: 可选参数，表示唯一索引；
+		fulltext: 可选参数，表示全文索引；
+		spatial: 可选参数，表示空间索引；
+		index|key: 索引表示标识符！
+		indexName: 可选参数，表示索引名字，如果未给出，则索引名字与字段名相同
+		bitName: 表示要建立索引的字段的名字；
+		size: 可选参数，表示索引的长度；
+		asc|desc: 可选参数，表示升序排序|降序排序。
+		
+		1，建立普通索引：index indexName(bitName ..)
+		2，建立全文索引和空间索引时要在表建立之后加上ENGINE=MYISAM语句，表示存储引擎的类型；
+		3，可以为多个字段同时建立一个相同的索引，此时为多列索引：
+		   index indexName(bitName1(..) ..,bitName2(..) ..,..bitNamen(..) ..);
+	2，使用alter table 语句在已存在的表上创建索引：
+	      alter table tableName add [unique|fulltext|spatial] index|key [indexName] (bitName [(size)] [asc|desc])
+
+	3，使用create [unique|fulltext|spatial] index [indexName] on tableName(bitName [(size)] [asc|desc])语句在与存在的表上创建索引；
+
+	4, 删除索引：
+		1，alter table tableName drop index indexName;
+		2, drop index indexName on tableName;
+
+4，unique约束和unique索引的关系：唯一约束其实就是唯一索引，但是约束的方法建立不能为约束命名，而使用索引的方法建立可以为索引命名，
+				所以unique约束的名字就是字段名，而unique索引的名字在默认的情况下才是字段名，他们之间又用的区别
+				在于一个unique约束没有办法同时对应多个字段，而unique索引则可以建立多字段的多列索引；
+
+
+19:26 2019/4/9
+
+1，为表添加新纪录
+	1，insert into tableName(bitName1,bitName2,...bitNamen) values(value1,value2,...valuen)
+	     此语句可以为表单添加需要添加的字段的对应的值，即值的顺序跟字段在表的顺序无关，此语句的顺序有关，只要一一对应即可；
+	2，insert into table

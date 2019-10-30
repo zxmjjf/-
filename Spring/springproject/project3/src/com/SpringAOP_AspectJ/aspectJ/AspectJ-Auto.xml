@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--声明启动AspectJ框架功能。以便能够扫描工程项目中的所有的 @AspectJ 注解-->
+    <aop:aspectj-autoproxy/>
+
+    <!--需要增强的资源-->
+    <bean id="mi_Phones" class="com.phone.MiPhones">
+        <property name="model" value="Mi-9  CPU-855 storage-128G"/>
+    </bean>
+
+    <!--AspectJ 框架配置-->
+    <bean id="phoneAspectJ" class="com.SpringAOP_AspectJ.aspectJ.PhoneAspectJ"/>
+    <bean id="phoneAspectJ1" class="com.SpringAOP_AspectJ.aspectJ.PhoneAspectJ1"/>
+
+</beans>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- 业务逻辑 -->
+    <!--MiPhones.class-->
+    <bean id="mi8_MiPhones" class="com.phone.MiPhones" >
+        <property name="model" value="Mi-8  CPU-845 storage-128G"/>
+    </bean>
+
+    <!--*******************************非切点代理******************************************-->
+    <!-- 增强 -->
+    <bean id="mi_BeforeRun" class="com.springAOP.beforeRun.MiPhBeforeRun"/>
+    <bean id="mi_AfterRun" class="com.springAOP.afterReturn.MiPhAfterReturn"/>
+    <bean id="mi_AfterThrow" class="com.springAOP.afterThrow.MiAfterThrow"/>
+    <bean id="mi_AroundAdvice" class="com.springAOP.aroundAdvice.MiPhAroundMethod"/>
+
+    <!--ProxyBean: 代理处理器-->
+    <!--Mi_BeforeRun-->
+    <bean id="proxy_mi_BeforeRun" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="mi8_MiPhones"/>
+        <property name="interceptorNames">
+            <list>
+                <value>mi_BeforeRun</value>
+            </list>
+        </property>
+    </bean>
+    <!--Mi_AfterRun-->
+    <bean id="proxy_mi_AfterRun" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="mi8_MiPhones"/>
+        <property name="interceptorNames">
+            <list>
+                <value>mi_AfterRun</value>
+            </list>
+        </property>
+    </bean>
+    <!--Mi_AfterThrow-->
+    <bean id="proxy_mi_AfterThrow" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="mi8_MiPhones"/>
+        <property name="interceptorNames">
+            <list>
+                <value>mi_AfterThrow</value>
+                <value>mi_BeforeRun</value>
+            </list>
+        </property>
+    </bean>
+    <!--Mi_AroundMethod-->
+    <bean id="mi_AroundAdvices" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="mi8_MiPhones"/>
+        <property name="interceptorNames">
+            <util:list>
+                <value>mi_AroundAdvice</value>
+            </util:list>
+        </property>
+    </bean>
+
+    <!--********************************************************************************************************-->
+
+    <!--*******************************切点代理******************************************-->
+    <!--增强Advice-->
+    <bean id="open_BeforeMethodAdvice" class="com.springAOP.beforeRun.MiPhBeforeRun">
+        <property name="say" value="mi.com      android..."/>
+    </bean>
+
+    <!--PointCut_ByName-->
+    <bean id="open_PointCut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+        <property name="mappedNames">
+            <list>
+                <value>open</value>
+                <value>close</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--Advisor-->
+    <!--<bean id="open_Advisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="pointcut" ref="open_PointCut"/>
+        <property name="advice" ref="open_BeforeMethodAdvice"/>
+    </bean>-->
+    <bean id="open_Advisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="mappedNames">
+            <list>
+                <value>open</value>
+                <value>close</value>
+            </list>
+        </property>
+        <property name="advice" ref="open_BeforeMethodAdvice"/>
+    </bean>
+
+    <!--切点代理器-->
+    <bean id="pCProxy_miBeforeRun" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="mi8_MiPhones"/>
+        <property name="interceptorNames">
+            <list>
+                <value>open_Advisor</value>
+            </list>
+        </property>
+    </bean>
+</beans>

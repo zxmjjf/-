@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="list1" class="main.java.ListDI.DIListValue">
+        <property name="list">
+            <util:list>
+                <value>姜剑锋</value>
+                <value>22</value>
+                <value>男</value>
+                <value>Java高级工程师</value>
+                <value>IT</value>
+                <value>10k</value>
+            </util:list>
+        </property>
+    </bean>
+
+
+
+</beans>

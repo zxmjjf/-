@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="bean1" class="main.java.com.sampletest.JiangJianFeng">
+        <!--<constructor-arg index="0" value="姜剑锋"/>
+        <constructor-arg index="1" value="22"/>
+        <constructor-arg index="2" value="true"/>-->
+        <property name="name" value="姜剑锋"/>
+        <property name="age" value="22"/>
+        <property name="sex" value="true"/>
+
+        <!--依赖内部对象-->
+        <!--前提是，bean1所对应的类必须有一个构造函数，此构造函数只有一个形参，类型
+        由子bean的class属性指定-->
+        <constructor-arg>
+            <bean class="main.java.com.sampletest.Job">
+                <property name="name" value="java安卓开发"/>
+                <property name="industry" value="软件行业"/>
+                <property name="wages" value="9999.99"/>
+            </bean>
+
+        </constructor-arg>
+
+    </bean>
+
+</beans>

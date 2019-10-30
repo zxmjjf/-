@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="bean1" class="main.java.com.sampletest.JiangJianFeng">
+        <!--<constructor-arg index="0" value="姜剑锋"/>
+        <constructor-arg index="1" value="22"/>
+        <constructor-arg index="2" value="true"/>-->
+        <property name="name" value="姜剑锋"/>
+        <property name="age" value="22"/>
+        <property name="sex" value="true"/>
+
+        <!--依赖内部对象-->
+        <property name="job" ref="jobBean"/>
+
+    </bean>
+
+    <bean id="jobBean" class="main.java.com.sampletest.Job">
+        <property name="name" value="java游戏开发"/>
+        <property name="industry" value="IT"/>
+        <property name="wages" value="10000"/>
+    </bean>
+</beans>

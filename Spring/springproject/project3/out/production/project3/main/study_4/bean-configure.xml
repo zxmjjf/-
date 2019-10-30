@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--<bean id="hasConstructor" class="main.study_4.Student">
+        &lt;!&ndash;这个bean的资源的构造器是无参构造器，所以数据都是默认值&ndash;&gt;
+        &lt;!&ndash;调用此main.study_4.Student 的名字为setPerson()的方法&ndash;&gt;
+        <property name="person">
+            &lt;!&ndash;方法的实参&ndash;&gt;
+            <bean class="main.study_4.Person">&lt;!&ndash;是外层property的子元素，所以只能在嵌套的property子元素内部使用&ndash;&gt;
+                <constructor-arg index="0" value="姜剑锋"/>
+                <constructor-arg index="1" value="22"/>
+                <constructor-arg index="2">
+                    <bean class="main.study_4.Date">
+                        <constructor-arg index="0" value="1996"/>
+                        <constructor-arg index="1" value="10"/>
+                        <constructor-arg index="2" value="4"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+
+    </bean>-->
+
+    <!--<bean id="person" class="main.study_4.Person">
+        <constructor-arg name="name" value="姜剑辉"/>
+        <constructor-arg name="age" value="26"/>
+    </bean>-->
+
+    <bean id="nonConstructor" class="main.study_4.Student" autowire="constructor">
+        <constructor-arg name="studentId" value="2016045244003"/>
+        <constructor-arg name="specialized" value="IT"/>
+        <!--剩下一个参数此时没有在bean中作为子元素什么，则就会根据参数的类型，自动在容器中全文搜索，并配置-->
+    </bean>
+
+
+
+    <bean id="person3" class="main.study_4.Person">
+        <constructor-arg index="0" value="姜剑锋"/>
+        <constructor-arg index="1" value="23"/>
+    </bean>
+
+    <bean id="person2" class="main.study_4.Person">
+        <constructor-arg index="0" value="姜剑锋"/>
+        <constructor-arg index="1" value="23"/>
+    </bean>
+
+</beans>
